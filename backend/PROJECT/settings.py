@@ -22,9 +22,11 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 
     "app_auth",
+
     "rest_framework",
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
+    "corsheaders",
 ]
 
 REST_FRAMEWORK = {
@@ -34,7 +36,7 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(seconds=15),
+    "ACCESS_TOKEN_LIFETIME": timedelta(seconds=5),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=15),
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
@@ -62,7 +64,7 @@ SIMPLE_JWT = {
     "JTI_CLAIM": "jti",
 
     "SLIDING_TOKEN_REFRESH_EXP_CLAIM": "refresh_exp",
-    "SLIDING_TOKEN_LIFETIME": timedelta(seconds=15),
+    "SLIDING_TOKEN_LIFETIME": timedelta(seconds=5),
     "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=15),
 
     "TOKEN_OBTAIN_SERIALIZER": "app_auth.serializers.MyTokenObtainPairSerializer",
@@ -76,12 +78,18 @@ SIMPLE_JWT = {
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+
+    # corsheaders
+    "corsheaders.middleware.CorsMiddleware",
+
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = "PROJECT.urls"
 
